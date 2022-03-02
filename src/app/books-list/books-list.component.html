@@ -13,6 +13,7 @@
   <thead>
     <tr>
       <th>ID</th>
+      <th>Autor</th>
       <th>Title</th>
       <th>N° paginas</th>
       <th>Fecha de publicación</th>
@@ -21,6 +22,7 @@
   <tbody>
     <tr *ngFor="let book of books">
       <td>{{ book.id }}</td>
+      <td>{{ book.author }}</td>
       <td>{{ book.title }}</td>
       <td>{{ book.pageCount }}</td>
       <td>{{ book.publishDate | date:'mediumDate':'UTC' }}</td>

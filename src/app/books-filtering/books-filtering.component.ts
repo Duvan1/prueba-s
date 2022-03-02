@@ -13,9 +13,9 @@ export class BooksFilteringComponent {
 
   filtrar() {
     this.filterChanged.emit({
-      autor: this.autor,
-      fromt: this.from,
-      to: this.to,
+      Autor: this.autor,
+      fechaIni: this.from,
+      fechaFin: this.to,
     });
   }
 }

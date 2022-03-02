@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../../services/login.service';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-login',
@@ -8,21 +9,37 @@ import { LoginService } from '../../services/login.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
+  @ViewChild('modal') private modalComponent!: ModalComponent;
   email?: string;
   password?: string;
+
+  modalConfig = {
+    modalTitle: 'Error',
+    dismissButtonLabel: 'OK',
+    closeButtonLabel: 'Cerrar',
+  };
+
+  async openModal() {
+    return await this.modalComponent.open();
+  }
 
   constructor(private loginService: LoginService, public router: Router) {}
 
   login() {
-    const user = { email: this.email, password: this.password };
+    const user = { userName: this.email, password: this.password };
     this.loginService.login(user).subscribe(
-      data => {
-        this.loginService.setToken(data.token);
-        this.router.navigateByUrl('/home');
+      (data) => {
+        if (data.token) {
+          this.loginService.setToken(data.token);
+          this.router.navigateByUrl('/home');
+        } else {
+          this.openModal();
+        }
       },
-      error => {
-        console.log(error);
-      });
+      (error) => {
+        this.openModal();
+      }
+    );
   }
   ngOnInit(): void {}
 }

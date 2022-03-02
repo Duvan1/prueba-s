@@ -8,9 +8,12 @@ import { BooksService } from 'src/services/books.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  
   books: any;
-  filters = {}
+  filters = {
+    fechaIni: '1920-01-01',
+    fechaFin: '2022-12-31',
+    Autor: null,
+  };
 
   constructor(public bookService: BooksService, public router: Router) {}
 
@@ -19,7 +22,14 @@ export class HomeComponent implements OnInit {
   }
 
   filterChanged(filters: any) {
+    Object.keys(filters).forEach((key) => {
+      if (!filters[key] || typeof filters[key] !== 'string') {
+        delete filters[key];
+      }
+    });
     this.filters = filters;
+
+    this.getBooks(this.filters);
   }
 
   getBooks(filter: any) {
@@ -27,6 +37,4 @@ export class HomeComponent implements OnInit {
       this.books = books;
     });
   }
-
-  
 }

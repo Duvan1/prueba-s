@@ -7,10 +7,11 @@ import { CookieService } from 'ngx-cookie-service';
   providedIn: 'root',
 })
 export class LoginService {
+  url : string = "https://localhost:44333/api/";
   constructor(private http: HttpClient, private cookies: CookieService) {}
 
   login(user: any): Observable<any> {
-    return this.http.post('https://reqres.in/api/login', user);
+    return this.http.post(`${this.url}User/Login`, user);
   }
 
   logout() {

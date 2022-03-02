@@ -17,7 +17,6 @@ export class BooksListComponent implements OnDestroy, OnInit {
   constructor(private httpClient: HttpClient, private excelService : ExportService) { }
 
   ngOnInit(): void {
-    console.log(new Date("2022-02-28T03:40:53.1708835+00:00"));
     
     this.dtOptions = {
       pagingType: 'full_numbers',
